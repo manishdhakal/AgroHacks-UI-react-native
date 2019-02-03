@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import {Container, Header, Icon, Left, Right, Body, Button, Content } from 'native-base';
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import {Container, Header, Icon, Left, Right, Body, Button, Content, Card } from 'native-base';
 
 
 export default class Details extends React.Component {
@@ -11,17 +11,17 @@ export default class Details extends React.Component {
       data : null
     }
   }
-  mounted(){
+  
+  async mounted(){
     
-    return fetch('https://facebook.github.io/react-native/movies.json')
-      .then( (response) => response.json() )
-      .then( (responseJson) => {
+    
+    const response = await fetch('https://facebook.github.io/react-native/movies.json');
+    const responseJson = await response.json();
+    this.setState({
+      isloading: false,
+      data: responseJson.movies
+    });
 
-        this.setState({
-          isloading : false,
-          data : responseJson.movies
-        })
-      });
   }
 
 
@@ -63,6 +63,10 @@ export default class Details extends React.Component {
         </Header>
         <Content >
             {movies}
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Compute') }>
+              <Text> go to compute</Text>
+            </TouchableOpacity>
+            
         </Content>
       </Container>
       );
@@ -74,7 +78,7 @@ export default class Details extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop : Expo.Constants.statusBarHeight,
+    marginTop : StatusBar.currentHeight,
     flex : 1,
     backgroundColor: 'white' 
   },
