@@ -26,7 +26,7 @@ export default class Details extends React.Component {
 
 
   render() {
-    
+    console.log('loading...');
     if (this.state.isloading){
       this.mounted();
       return (

@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, DrawerLayoutAndroid, Image, StatusBar } from 'react-native';
 import {Container, Header, Icon, Left, Right, Body, Button, Card } from 'native-base';
-
-
+import {User} from '../App';
 
 
 export default class Profile extends React.Component {
@@ -58,7 +57,7 @@ export default class Profile extends React.Component {
                     <View style={{flex:5, alignItems:'flex-start'}}>
                         <View style={{flexDirection:'row', paddingTop:20}}>
                             <Icon  name='md-menu' style={{height:20, color:'white',}} />
-                            <Text style={{fontSize:20, color:'white', marginLeft:20}} >Manish Dhakal</Text>
+                            <Text style={{fontSize:20, color:'white', marginLeft:20}} >{User.name}</Text>
 
                         </View>
                         <View style={{flexDirection:'row', paddingTop:20}}>

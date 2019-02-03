@@ -6,14 +6,7 @@ import {Container, Header, Icon, Left, Right, Body, Button, Card } from 'native-
 
 
 export default class Compute2 extends React.Component {
-  static navigationOptions = {
-    title : 'Home',
-    headerLeft: (
-        <Button
-          onPress={() => alert('This is a button!')}
-          title="Info"
-          color="#fff"/>)
-   };  
+  
     render() {
       return (
         

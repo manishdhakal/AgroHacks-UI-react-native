@@ -1,30 +1,39 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import {Container, Header, Icon, Left, Right, Body, Button, Card } from 'native-base';
-
-
 
 
 export default class Compute1 extends React.Component {
 
   constructor(props){
     super(props);
-    //var open = () =>{this.props.navigation.navigate('Compute2')}
+    this.state ={
+      clicked:false
+    }
+
+    this.content = null;
+
+    this.click = this.click.bind(this);
   }
 
-  static navigationOptions = {
-     headerTitle : 'main'
-
-
-   }
-    render() {
+  click(){
+    this.state.clicked = true;
+         
+        
     
+  }
+
+    render() {
+      let dar = <View><Text>manish</Text></View>
+
       return (
         
           <Container style= {styles.container}>
-          <TouchableOpacity onPress={this.open }>
+          <Header></Header>
+          <TouchableOpacity onPress={this.click }>
             <Text> this is compute1 </Text>
           </TouchableOpacity>
+            {dar}
            
           </Container>
       );
@@ -33,9 +42,11 @@ export default class Compute1 extends React.Component {
   
   const styles = StyleSheet.create({
     container: {
-      marginTop : Expo.Constants.statusBarHeight,
+      marginTop : StatusBar.currentHeight,
       flex : 1,
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      alignItems : 'center',
+      justifyContent :'center'
       
     }
   }); 

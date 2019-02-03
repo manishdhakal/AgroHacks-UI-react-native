@@ -22,7 +22,7 @@ const customDraw = (props) => (
     </ScrollView>
   </SafeAreaView>
 )
-export default class App extends React.Component {
+ export default class App extends React.Component {
 
   render() {
     return (
@@ -41,6 +41,10 @@ const Draw = createAppContainer(createDrawerNavigator({
 },
 {
   contentComponent: customDraw,
-  
-  
+   
 }));
+
+export const User = {
+  name:"Manish Dhakal",
+  number : "9860687860"
+} 
