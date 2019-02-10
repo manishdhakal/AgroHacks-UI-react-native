@@ -1,14 +1,31 @@
 import React from 'react';
-import Details from './components/details';
+import Compute1 from './components/compute1';
 import Home from './components/home';
 import Compute from './components/compute';
+import Signup from './components/signup';
+import Edit from './components/editDetail';
 import Profile from './components/profile';
-import Compute1 from './components/compute1';
-import Compute2 from './components/compute2';
+import Signin from './components/signin'
+
+import {SafeAreaView, ScrollView, View, Image, StatusBar, Text} from 'react-native';
+import {createAppContainer, createDrawerNavigator, DrawerItems, createStackNavigator } from 'react-navigation';
+
+var User;
 
 
-import {SafeAreaView, ScrollView, View, Image, StatusBar} from 'react-native';
-import {createAppContainer, createDrawerNavigator, DrawerItems } from 'react-navigation';
+// let Get=()=>{fetch('http://192.168.137.1:8000/manish.json')
+//   .then((response) => response.json())
+//       .then((responseJson) => {User=responseJSON})
+        
+//       .catch((error) => {
+//       console.error(error);
+//       });
+//   }
+
+// export let getUser = ()=>{
+//   Get();
+//   return User;
+// }
 
 const customDraw = (props) => (
   <SafeAreaView style={{flex:1, marginTop:StatusBar.currentHeight,}}>
@@ -22,29 +39,69 @@ const customDraw = (props) => (
     </ScrollView>
   </SafeAreaView>
 )
- export default class App extends React.Component {
+
+export default class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      isLogged: false
+    }
+    this.checkPoint = this.checkPoint.bind(this)
+
+ 
+  }
+  async checkPoint(){
+    const  response  = await fetch('http://10.100.53.101:5000/verify')
+    const responseJSON = await response;
+    //console.log(responseJSON);
+    this.setState({
+      isLogged: responseJSON.status
+    });
+
+  }
 
   render() {
-    return (
-      <Draw />
+    
+    if (this.state.isLogged){
       
-    );}
+      return(
+        <NotLogged />
+        );
+    }
+    else{
+
+        return (
+          <Logged />
+        );
+    }
+  }
 }
 
-const Draw = createAppContainer(createDrawerNavigator({
-  Home :{screen:Home} ,
-  Details : {screen:Details},
-  Compute: {screen:Compute},
-  Profile: {screen:Profile},
+const Logged  =   createAppContainer(createDrawerNavigator({
+  Home: {screen: Home  } ,
+  //Details : {screen: Details},
+  Compute: {screen: Compute},
   Compute1: {screen:Compute1},
-  Compute2: {screen:Compute2},
+  Profile: createAppContainer( createStackNavigator({
+          ProfileView: {screen: Profile},
+          Edit : {screen: Edit},
+        },{
+            headerMode: 'none' 
+        }
+  ))
 },
 {
   contentComponent: customDraw,
-   
 }));
 
-export const User = {
-  name:"Manish Dhakal",
-  number : "9860687860"
+
+const NotLogged = createAppContainer(createStackNavigator({
+  Signin: {screen:Signin},
+  Signup: {screen: Signup},
+  Logged: Logged,
+  
+},{
+  headerMode: 'none' 
 } 
+));
+
